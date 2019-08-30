@@ -36,40 +36,40 @@ class ConfigurationReader:
 
         return config_dict
 
-    def _string2dict(self, string, path, format=None):
-        """Parse string in format and return it's dictionary representation
+    def _string2dict(self, string, path, data_format=None):
+        """Parse string in data_format and return it's dictionary representation
 
-        If format is not specified then ConfigurationReader will try to
+        If data_format is not specified then ConfigurationReader will try to
         determine it by attempting to parse string with all accessible parsers.
 
         Raises:
         DecodeError -- in case of bad syntax of string or inability
                        to decode it
-        ValueError -- in case of unknown format.
+        ValueError -- in case of unknown data_format.
 
         Positional arguments:
         string -- string to be parsed
         path -- path to file which contains string
 
         Keyword arguments:
-        format -- format of string
+        data_format -- data_format of string
                     possible values: "json", "configobj"
         """
         # try to determine type of file if filetype has not been supplied
-        if format is None:
+        if data_format is None:
             configuration = (self._json2dict(string, path, False)
                              or self._python_configobj2dict(string, path, False)
                             )
             if configuration is None:
                 msg = ("Oneconf was not able to decode %s", path)
                 raise DecodeError(msg, path)
-        elif format == "json":
+        elif data_format == "json":
             configuration = self._json2dict(string, path, True)
-        elif format == "configobj":
+        elif data_format == "configobj":
             configuration = self._python_configobj2dict(string, path, True)
         else:
             # bad filetype argument has been supplied
-            raise ValueError("Unknown filetype %s" % format)
+            raise ValueError("Unknown filetype %s" % data_format)
         return configuration
 
     def _json2dict(self, string, path, raise_error=True):
@@ -92,7 +92,7 @@ class ConfigurationReader:
             configuration = dict(json.loads(string))
         except json.decoder.JSONDecodeError as err:
             if raise_error:
-                # we have to mock JSONDecodeError's message format because
+                # we have to mock JSONDecodeError's message data_format because
                 # JSONDecodeError does not save it's message to public variable
                 parser_msg = ("%s: line %d column %d (char %d)"
                             % (err.msg, err.lineno, err.colno, err.pos))
