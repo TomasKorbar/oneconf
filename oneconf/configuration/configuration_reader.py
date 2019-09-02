@@ -95,12 +95,12 @@ class ConfigurationReader:
                 # we have to mock JSONDecodeError's message data_format because
                 # JSONDecodeError does not save it's message to public variable
                 parser_msg = ("%s: line %d column %d (char %d)"
-                            % (err.msg, err.lineno, err.colno, err.pos))
+                              % (err.msg, err.lineno, err.colno, err.pos))
                 raise DecodeError("Oneconf was not able to decode json file",
-                                path,
-                                parser_msg,
-                                err.lineno,
-                                ) from None
+                                  path,
+                                  parser_msg,
+                                  err.lineno,
+                                  ) from None
         return configuration
 
     def _python_configobj2dict(self, string, path, raise_error=True):

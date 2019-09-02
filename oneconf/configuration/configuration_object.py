@@ -1,6 +1,10 @@
+""" Module containing ConfigurationObject class
+"""
 from oneconf.configuration import ConfigurationReader
 
 class ConfigurationObject:
+    """ Class for Oneconf's configuration object
+    """
     def __init__(self, priority, path=None, conf_dict=None, data_format=None):
         if path is None and conf_dict is None:
             msg = "Either path or conf_dict must be specified"
