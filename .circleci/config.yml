@@ -1,0 +1,57 @@
+ version: 2.1
+ executors:
+  python_exec:
+    docker:
+      - image: circleci/python:3.7.4
+    working_directory: ~/oneconf
+ jobs:
+   setup:
+     executor: python_exec
+     steps:
+       - checkout
+       - run:
+              name: create virtual environment
+              command: |
+                mkdir -p ./venv
+                virtualenv ./venv
+       - run:
+              name: install oneconf and pylint to virtual environment
+              command: |
+                . venv/bin/activate
+                pip install ./
+                pip install pylint
+       - persist_to_workspace:
+              root: ./
+              paths:
+                - ./*
+   test:
+     executor: python_exec
+     steps:
+       - attach_workspace:
+              at: ~/oneconf
+       - run:
+              name: run tests in virtual environment
+              command: |
+                . venv/bin/activate
+                python3 -m unittest discover tests -p "*tests.py"
+   lint:
+     executor: python_exec
+     steps:
+       - attach_workspace:
+              at: ~/oneconf
+       - run:
+              name: run pylint in virtual environment
+              command: |
+                . venv/bin/activate
+                pylint ./oneconf/
+ workflows:
+   version: 2
+   tests:
+     jobs:
+       - setup
+       - test:
+          requires:
+            - setup
+       - lint:
+          requires:
+            - setup
