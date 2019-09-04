@@ -48,7 +48,7 @@
               name: run pylint on master branch
               command: |
                 . venv/bin/activate
-                git checkout master
+                git checkout origin/master
                 pylint --exit-zero -s n --output-format=parseable ./oneconf/ > /tmp/old_pylint
        - run:
               name: compare pylint outputs
