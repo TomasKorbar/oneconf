@@ -40,10 +40,24 @@
        - attach_workspace:
               at: ~/oneconf
        - run:
-              name: run pylint in virtual environment
+              name: run pylint on changed code
               command: |
                 . venv/bin/activate
-                pylint ./oneconf/
+                pylint --exit-zero -s n --output-format=parseable ./oneconf/ > /tmp/new_pylint
+       - run:
+              name: run pylint on master branch
+              command: |
+                . venv/bin/activate
+                git checkout master
+                pylint --exit-zero -s n --output-format=parseable ./oneconf/ > /tmp/old_pylint
+       - run:
+              name: compare pylint outputs
+              command: |
+                python3 ./pylint_regexer.py /tmp/old_pylint /tmp/new_pylint
+       - run:
+              name: show difference between old and new pylint output
+              command: git diff /tmp/old_pylint /tmp/new_pylint
+              when: on_fail
  workflows:
    version: 2
    tests:
