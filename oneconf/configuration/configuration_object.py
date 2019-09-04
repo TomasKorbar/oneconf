@@ -11,7 +11,7 @@ class ConfigurationObject:
             raise ValueError(msg)
 
         self.priority = priority
-
+        self.useless = None
         if conf_dict is not None:
             self.configuration = conf_dict
         else:
