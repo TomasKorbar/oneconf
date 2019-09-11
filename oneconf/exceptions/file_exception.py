@@ -1,5 +1,5 @@
 """Module containing FileError class"""
-from oneconf.exceptions import OneconfError
+from oneconf.exceptions.oneconf_exception import OneconfError
 
 class FileError(OneconfError):
     """Error raised when file is unacessible"""

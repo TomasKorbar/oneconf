@@ -1,6 +1,6 @@
 """Module containing DecodeError class"""
 
-from oneconf.exceptions import OneconfError
+from oneconf.exceptions.oneconf_exception import OneconfError
 
 class DecodeError(OneconfError):
     """Error raised when configuration file can not be parsed"""

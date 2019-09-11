@@ -3,7 +3,8 @@
 import json
 import configparser
 
-from oneconf.exceptions import DecodeError, FileError
+from oneconf.exceptions.decode_exception import DecodeError
+from oneconf.exceptions.file_exception import FileError
 
 class ConfigurationReader:
     """ Class containing Oneconf's methods for parsing of configuration files"""

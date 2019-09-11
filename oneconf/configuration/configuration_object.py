@@ -1,6 +1,6 @@
 """ Module containing ConfigurationObject class
 """
-from oneconf.configuration import ConfigurationReader
+from oneconf.configuration.configuration_reader import ConfigurationReader
 
 class ConfigurationObject:
     """ Class for Oneconf's configuration object

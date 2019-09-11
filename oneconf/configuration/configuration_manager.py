@@ -1,7 +1,7 @@
 """ Module containing ConfigurationManager class
 """
 
-from oneconf.configuration import ConfigurationObject
+from oneconf.configuration.configuration_object import ConfigurationObject
 
 class ConfigurationManager:
     """Class containing methods for work with oneconf's configuration objects
